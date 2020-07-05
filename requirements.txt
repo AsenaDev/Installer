@@ -1,0 +1,6 @@
+heroku3
+telethon
+bs4
+requests
+rich
+gitpython
