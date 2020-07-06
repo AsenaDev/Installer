@@ -1,4 +1,6 @@
 # Asena Installer
+[![Run on Repl.it](https://repl.it/badge/github/asenadev/installer)](https://repl.it/github/asenadev/installer)
+
 HerokuAPI'si kullanılarak yapılmış Otomatik Asena Deploy'er
 
 Asena Reposunu kontrol edin: https://github.com/Quiec/AsenaUserBot
