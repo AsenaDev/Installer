@@ -1,0 +1,2 @@
+[build-system]
+requires = ["heroku3", "telethon", "bs4", "requests", "rich", "gitpython"]
