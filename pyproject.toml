@@ -1,2 +1,14 @@
-[build-system]
-requires = ["heroku3", "telethon", "bs4", "requests", "rich", "gitpython"]
+[tool]
+[tool.poetry]
+name = "AsenaUserBot_Deployer"
+version = "1.0"
+description = "Automatic Deploy AsenaUserBot to Heroku"
+authors = ["Yusuf Usta <yusuf@quiec.tech>"]
+[tool.poetry.dependencies]
+python = "^3.8"
+bs4 = "*"
+gitpython = "*"
+heroku3 = "*"
+requests = "*"
+rich = "*"
+telethon = "*"
