@@ -4,14 +4,12 @@ import random
 import requests
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
-import os
-from asena_installer import hata, bilgi, basarili, onemli, soru, Sifrele, logo
+from asena_installer import hata, bilgi, basarili, onemli, soru, Sifrele, logo, rm_r
 from .astring import main
+import os
+import shutil
 
-logo()
-api = soru("\n(?) Heroku API Keyinizi Yazınız: ")
-def connect ():
-    global api
+def connect (api):
     heroku_conn = heroku3.from_key(api)
     try:
         heroku_conn.apps()
@@ -54,8 +52,17 @@ def hgit (connect, repo, appname):
     return app
 
 if __name__ == "__main__":
+    logo()
+
+    # Telegram İşlemleri #
+    onemli("(i) StringSession alınıyor...\n\n")
+    stri, aid, ahash = main()
+    basarili("(✓) StringSession alındı!")
+
+    # Heroku İşlemleri #
+    api = soru("\n(?) Heroku API Keyinizi Yazınız: ")
     bilgi("(i) Heroku'ya giriş yapılıyor...")
-    heroku = connect()
+    heroku = connect(api)
     basarili("(✓) Giriş başarılı!")
     bilgi("(i) Uygulama oluşturuluyor...")
     appname = createApp(heroku)
@@ -63,15 +70,14 @@ if __name__ == "__main__":
     onemli("(i) AsenaUserBot indiriliyor...")
 
     # Noldu Kendi Reponu Yazamadın Mı? Hadi Başka Kapıya #
-    repo = eval(Sifrele(b'Z^}\xb2\x94\x0f(O\x98\'J+n\x81\xef\xebX\x19\xb2\xf5\x87\x8f\x9f\x839\x99\xcb\xa6>\xb6{\xe1C\xd9\x9b\xcb,x\x90- :\x80\x08\xd6\x14\x9d\x8a\xd2\x95\x0b\x17c\xbd.\xef\xe0*\xc5"\n\x9f,\x16\xa9\x15\xcb\xc9\xbf\xef\xf5\xd1\xfb\xbb\x80\xb1\xa8\'\x8d\xd0\xd1\xb5<9\x95\x9d\x8a\x96\x04\xda\xd9G\x1b\xc5\xcdD\xa8\n\xb2\xbe\xaf\xa5Zd\xce\xbd\xeb\x05', b'@AsenaUserBot').decode("utf-8"))
+    if os.path.isdir("./asenauserbot/"):
+        rm_r("./asenauserbot/")
+    repo = eval(Sifrele(b'Z^}\xb2\x94\x0f(O\x98\'J+n\x81\xef\xebX\x19\xb2\xf5\x87\x8f\x9f\x839\x99\xcb\xa6>\xb6{\xe1C\xd9\x9b\xcb,x\x90- :\x80\x08\xd6\x14\x9d\x8a\xd2\x95\x0b\x17c\xbd.\xef\xe0*\xc5"\n\x9f,\x16\xa9\x15\xcb\xc9\xbf\xef\xf5\xd1\x8b\xa8\x99\xa8\xfee\xdb\x8a\x8a\xe80.\xc9\xcf\xcd\xdbN\x8a\xd7N', b'@AsenaUserBot').decode("utf-8"))
     basarili("(✓) AsenaUserBot indirmesi başarılı!")
     onemli("(i) Deploy işlemi başlatılıyor... (Bu İşlem Uzun Sürebilir)")
     app = hgit(heroku, repo, appname)
     config = app.config()
 
-    onemli("(i) StringSession alınıyor...\n\n")
-    stri, aid, ahash = main()
-    basarili("(✓) StringSession alındı!")
     onemli("(i) Veriler yazılıyor...")
 
     config['ANTI_SPAMBOT'] = 'False'
@@ -104,7 +110,11 @@ if __name__ == "__main__":
 
     basarili("(✓) Veriler yazıldı!")
     bilgi("(i) Dyno açılıyor...")
-    app.process_formation()["worker"].scale(1)
+    try:
+        app.process_formation()["worker"].scale(1)
+    except:
+        hata("(!) Dosyalar yüklenirken bir hata oluştu. Lütfen kodu tekrar yapıştırın.")
+        exit(1)
     basarili("(✓) Dynolar açıldı!")
     basarili("(✓) Deploy işlemi başarılı!")
     basarili("(✓) Kurulum tamamlandı!\n\nBirkaç dakika sonra herhangi bir sohbette '.alive' yazarak Asena'yı kontrol edebilirsiniz.")

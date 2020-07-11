@@ -1,6 +1,6 @@
 from rich.console import Console
 import sys
-
+import os, shutil
 console = Console()
 
 def hata (text):
@@ -17,8 +17,13 @@ def logo ():
    surum = str(sys.version_info[0]) + "." + str(sys.version_info[1])
    console.print(f"[bold blue]@AsenaUserBot Installer :wolf:[/]\n\n[bold cyan]Version: [/][i]1.0[/]\n[bold cyan]Python: [/][i]{surum}[/]\n")                         
                             
-
-
+def rm_r(path):
+    if not os.path.exists(path):
+        return
+    if os.path.isfile(path) or os.path.islink(path):
+        os.unlink(path)
+    else:
+        shutil.rmtree(path)
 
 def Sifre(S):
     i = 0
