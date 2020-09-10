@@ -1,4 +1,6 @@
 from rich.console import Console
+from rich.panel import Panel
+from rich.live_render import LiveRender
 import sys
 import os, shutil
 console = Console()
@@ -8,15 +10,17 @@ def hata (text):
 def bilgi (text):
    console.print(text, style="blue")
 def basarili (text):
-   console.print(text, style="bold green")
+   console.print(f"[bold green]{text}[/]")
 def onemli (text):
    console.print(text, style="bold cyan")
 def soru (soru):
    return console.input(f"[bold yellow]{soru}[/]")
 def logo ():
    surum = str(sys.version_info[0]) + "." + str(sys.version_info[1])
-   console.print(f"[bold blue]@AsenaUserBot Installer :wolf:[/]\n\n[bold cyan]Version: [/][i]1.0[/]\n[bold cyan]Python: [/][i]{surum}[/]\n")                         
-                            
+   console.print(Panel(f"[bold blue]@AsenaUserBot Installer :wolf:[/]\n\n[bold cyan]Version: [/][i]2.0[/]\n[bold cyan]Python: [/][i]{surum}[/]\n"), justify="center")                         
+def tamamlandi (saniye):
+   console.print(Panel(f"[bold green]Kurulum Tamamlandı!\n[i]Botu {round(saniye)} saniye içinde kurdunuz.[/]\n\n[bold green]Birkaç dakika sonra herhangi bir sohbette .alive yazarak test edebilirsiniz. Keyifli kullanımlar dileriz:)[/]"), justify="center")                         
+                   
 def rm_r(path):
     if not os.path.exists(path):
         return
