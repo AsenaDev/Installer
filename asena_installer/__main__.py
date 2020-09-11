@@ -161,7 +161,12 @@ if __name__ == "__main__":
         }
     ])
 
-    if Sonra["sonra"] == LANG['YES']:
+    try:
+        Sonra = Sonra["sonra"]
+    except KeyError:
+        Sonra = LANG['NO']
+
+    if Sonra == LANG['YES']:
         BotLog = False
         Cevap = ""
         while not Cevap == LANG['CLOSE']:
