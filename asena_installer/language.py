@@ -1,7 +1,10 @@
 from json import loads
 from PyInquirer import prompt
+from . import logo, console
 
 def importlang ():
+    console.clear()
+    logo()
     Dil = prompt([  
         {
             'type': 'list',
