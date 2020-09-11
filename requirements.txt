@@ -4,4 +4,3 @@ bs4
 requests
 rich
 gitpython
-PyInquirer

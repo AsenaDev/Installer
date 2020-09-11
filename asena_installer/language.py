@@ -1,39 +1,22 @@
 from json import loads
-from PyInquirer import prompt
+from rich.prompt import Prompt
 from . import logo, console, bilgi
 
 def importlang ():
     console.clear()
     logo()
-    Dil = prompt([  
-        {
-            'type': 'list',
-            'name': 'dil',
-            'message': 'Lütfen dilinizi seçiniz / Please select your language',
-            'default': 'Türkçe',
-            'choices': [
-                'Türkçe',
-                'Azərbaycanca',
-                'English'
-            ]
-        }
-    ])
-    
-    try:
-        Dil = Dil["dil"]
-    except KeyError:
-        bilgi("(i) Lütfen yukarı aşağı butonlarını kullanın. Türkçe seçiliyor...")
-        Dil = "Türkçe"
+    bilgi("\n\[1] Türkçe\n\[2] Azərbaycanca\n\[3] English")
+    Dil = Prompt.ask("[bold yellow]Lütfen bir dil seçin / Please select a language[/]", choices=["1", "2", "3"], default="1")
 
-    if Dil == "Türkçe":
+    if Dil == "1":
         COUNTRY = "Turkey"
         LANGUAGE = "TR"
         TZ = "Europe/Istanbul"
-    elif Dil == "Azərbaycanca":
+    elif Dil == "2":
         COUNTRY = "Azerbaijan"
         LANGUAGE = "AZ"
         TZ = "Asia/Baku"
-    elif Dil == "English":
+    elif Dil == "3":
         COUNTRY = "United Kingdom"
         LANGUAGE = "EN"
         TZ = "Europe/London"

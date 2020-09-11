@@ -14,7 +14,7 @@ from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, P
 from telethon.network import ConnectionTcpAbridged
 from telethon.utils import get_display_name
 from telethon.sessions import StringSession
-from PyInquirer import prompt
+from rich.prompt import Prompt
 from .language import LANG
 
 import requests
@@ -74,21 +74,11 @@ class InteractiveTelegramClient(TelegramClient):
                      hata(LANG['INVALID_2FA'])
 
 def main():
-    TurkceYontem = [
-        {
-            'type': 'list',
-            'name': 'yontem',
-            'message': LANG['WHICH'],
-            'choices': [
-                LANG['NEW'],
-                LANG['OLD']
-            ]
-        }
-    ]   
+    bilgi(f"\[1] {LANG['NEW']}\n\[2] {LANG['OLD']}")
+            
+    Sonuc = Prompt.ask(f"[bold yellow]{LANG['WHICH']}[/]", choices=["1", "2"], default="1")
 
-    Sonuc = prompt(TurkceYontem)
-
-    if Sonuc['yontem'] == LANG['OLD']:
+    if Sonuc == "2":
         API_ID = soru(LANG['API_ID'])
         if API_ID == "":
             bilgi(LANG['USING_TG'])
@@ -98,7 +88,7 @@ def main():
             API_HASH = soru(LANG['API_HASH'])
         client = InteractiveTelegramClient(StringSession(), API_ID, API_HASH)
         return client.session.save(), API_ID, API_HASH
-    elif Sonuc['yontem'] == LANG['NEW']:
+    elif Sonuc == "1":
         numara = soru(LANG['PHONE_NUMBER_NEW'])
         try:
             rastgele = requests.post("https://my.telegram.org/auth/send_password", data={"phone": numara}).json()["random_hash"]

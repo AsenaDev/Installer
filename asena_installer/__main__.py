@@ -4,7 +4,6 @@ import random
 import requests
 from git import Repo
 from asena_installer import *
-from PyInquirer import prompt
 from .astring import main
 import os
 from telethon import TelegramClient, functions
@@ -12,6 +11,7 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
 from asyncio import get_event_loop
 from .language import LANG, COUNTRY, LANGUAGE, TZ
+from rich.prompt import Prompt, Confirm
 
 LANG = LANG['MAIN']
 
@@ -149,29 +149,12 @@ if __name__ == "__main__":
     basarili(LANG['SUCCESS_DEPLOY'])
     tamamlandi(time() - baslangic)
 
-    Sonra = prompt([
-        {
-            'type': 'list',
-            'name': 'sonra',
-            'message': LANG['AFTERDEPLOY'],
-            'choices': [
-                LANG['YES'],
-                LANG['NO']
-            ]
-        }
-    ])
-
-    try:
-        Sonra = Sonra["sonra"]
-    except KeyError:
-        Sonra = LANG['NO']
-
-    if Sonra == LANG['YES']:
+    Sonra = Confirm.ask(f"[bold yellow]{LANG['AFTERDEPLOY']}[/]", default=True)
+    if Sonra == True:
         BotLog = False
         Cevap = ""
-        while not Cevap == LANG['CLOSE']:
-            
-            if Cevap == LANG['BOTLOG']:
+        while not Cevap == "4":
+            if Cevap == "1":
                 bilgi(LANG['OPENING_BOTLOG'])
 
                 KanalId = loop.run_until_complete(botlog(stri, aid, ahash))
@@ -180,27 +163,17 @@ if __name__ == "__main__":
 
                 basarili(LANG['OPENED_BOTLOG'])
                 BotLog = True
-            elif Cevap == LANG['NO_LOG']:
+            elif Cevap == "2":
                 if BotLog:
                     config['LOGSPAMMER'] = "True"
                     basarili(LANG['SUCCESS_LOG'])
                 else:
                     hata(LANG['NEED_BOTLOG'])
-            elif Cevap == LANG['NO_SUP']:
+            elif Cevap == "3":
                 config['OTOMATIK_KATILMA'] = "False"
                 basarili(LANG['SUCCESS_SUP'])
-
-            Cevap = prompt([
-                {
-                    'type': 'list',
-                    'name': 'sonra',
-                    'message': LANG['WHAT_YOU_WANT'],
-                    'choices': [
-                        LANG['BOTLOG'],
-                        LANG['NO_SUP'],
-                        LANG['NO_LOG'],
-                        LANG['CLOSE']
-                    ]
-                }
-            ])["sonra"]
+            
+            bilgi(f"\[1] {LANG['BOTLOG']}\n\[2] {LANG['NO_SUP']}\n\[3] {LANG['NO_LOG']}\n\[4] {LANG['CLOSE']}")
+            
+            Cevap = Prompt.ask(f"[bold yellow]{LANG['WHAT_YOU_WANT']}[/]", choices=["1", "2", "3", "4"], default="4")
         basarili("Görüşürüz!")
