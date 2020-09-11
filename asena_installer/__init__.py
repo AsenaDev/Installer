@@ -15,9 +15,9 @@ def onemli (text):
    console.print(text, style="bold cyan")
 def soru (soru):
    return console.input(f"[bold yellow]{soru}[/]")
-def logo ():
+def logo (dil = "None"):
    surum = str(sys.version_info[0]) + "." + str(sys.version_info[1])
-   console.print(Panel(f"[bold blue]@AsenaUserBot Installer :wolf:[/]\n\n[bold cyan]Version: [/][i]2.0[/]\n[bold cyan]Python: [/][i]{surum}[/]\n"), justify="center")                         
+   console.print(Panel(f"[bold blue]@AsenaUserBot Installer :wolf:[/]\n\n[bold cyan]Version: [/][i]2.0[/]\n[bold cyan]Python: [/][i]{surum}[/]\n[bold cyan]Dil: [/][i]{dil}[/]"), justify="center")                         
 def tamamlandi (saniye):
    console.print(Panel(f"[bold green]Kurulum Tamamlandı!\n[i]Botu {round(saniye)} saniye içinde kurdunuz.[/]\n\n[bold green]Birkaç dakika sonra herhangi bir sohbette .alive yazarak test edebilirsiniz. Keyifli kullanımlar dileriz:)[/]"), justify="center")                         
                    

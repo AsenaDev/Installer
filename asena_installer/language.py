@@ -1,6 +1,6 @@
 from json import loads
 from PyInquirer import prompt
-from . import logo, console
+from . import logo, console, bilgi
 
 def importlang ():
     console.clear()
@@ -10,13 +10,20 @@ def importlang ():
             'type': 'list',
             'name': 'dil',
             'message': 'Lütfen dilinizi seçiniz / Please select your language',
+            'default': 'Türkçe',
             'choices': [
                 'Türkçe',
                 'Azərbaycanca',
                 'English'
             ]
         }
-    ])["dil"]
+    ])
+    
+    try:
+        Dil = Dil["dil"]
+    except KeyError:
+        bilgi("(i) Lütfen yukarı aşağı butonlarını kullanın. Türkçe seçiliyor...")
+        Dil = "Türkçe"
 
     if Dil == "Türkçe":
         COUNTRY = "Turkey"
