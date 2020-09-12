@@ -132,8 +132,8 @@ def main():
                 newsoup = bs4.BeautifulSoup(newapp, features="html.parser")
                 g_inputs = newsoup.find_all("span", {"class": "form-control input-xlarge uneditable-input"})
 
-            app_id = g_inputs[0].string
-            api_hash = g_inputs[1].string
+                app_id = g_inputs[0].string
+                api_hash = g_inputs[1].string
 
             bilgi(LANG['INFOS'])
             onemli(f"{LANG['APIID']} {app_id}")
