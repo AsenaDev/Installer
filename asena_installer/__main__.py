@@ -163,13 +163,13 @@ if __name__ == "__main__":
 
                 basarili(LANG['OPENED_BOTLOG'])
                 BotLog = True
-            elif Cevap == "2":
+            elif Cevap == "3":
                 if BotLog:
                     config['LOGSPAMMER'] = "True"
                     basarili(LANG['SUCCESS_LOG'])
                 else:
                     hata(LANG['NEED_BOTLOG'])
-            elif Cevap == "3":
+            elif Cevap == "2":
                 config['OTOMATIK_KATILMA'] = "False"
                 basarili(LANG['SUCCESS_SUP'])
             
