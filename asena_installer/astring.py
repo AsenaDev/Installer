@@ -111,11 +111,11 @@ def main():
             hashh = soup.find("input", {"name": "hash"}).get("value")
             AppInfo = {
                 "hash": hashh,
-                "app_title": choice(["a", "as", "ase", "asen", "asena"]) + choice(["user", "bot", "userbot"]) + str(randint(10000, 99999)),
-                "app_shortname": choice(["a", "as", "ase", "asen", "asena"]) + choice(["user", "bot", "userbot"]) + str(randint(10000, 99999)),
+                "app_title": choice(["a", "as", "ase", "asen"]) + choice(["user", "bot", "vue", "js", "python", "php"]) + str(randint(10000, 99999)),
+                "app_shortname": choice(["a", "as", "ase", "asen"]) + choice(["user", "bot", "vue", "js", "python", "php"]) + choice([str(randint(10000, 99999)), str(randint(10, 50))]),
                 "app_url": "",
                 "app_platform": choice(["android", "ios", "web", "desktop"]),
-                "app_desc": ""
+                "app_desc": choice(["Test", "New App", "Send Message"])
             }
             app = requests.post("https://my.telegram.org/apps/create", data=AppInfo, cookies=cookie).text
 
