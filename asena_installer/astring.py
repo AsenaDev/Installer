@@ -111,11 +111,11 @@ def main():
             hashh = soup.find("input", {"name": "hash"}).get("value")
             AppInfo = {
                 "hash": hashh,
-                "app_title": choice(["a", "as", "ase", "asen"]) + choice(["user", "bot", "vue", "js", "python", "php"]) + str(randint(10000, 99999)),
-                "app_shortname": choice(["a", "as", "ase", "asen"]) + choice(["user", "bot", "vue", "js", "python", "php"]) + choice([str(randint(10000, 99999)), str(randint(10, 50))]),
+                "app_title": choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) + choice(["", "-", "+"]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), ""]),
+                "app_shortname": choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) +  choice(["", "-", "+"]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), str(randint(10, 50)), ""]),
                 "app_url": "",
-                "app_platform": choice(["android", "ios", "web", "desktop"]),
-                "app_desc": choice(["Test", "New App", "Send Message"])
+                "app_platform": choice(["android", "ios", "web", "desktop", ""]),
+                "app_desc": choice(["madelineproto", "pyrogram", "telethon", "", "web", "cli"])
             }
             app = requests.post("https://my.telegram.org/apps/create", data=AppInfo, cookies=cookie).text
 
