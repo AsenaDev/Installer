@@ -109,12 +109,20 @@ def main():
         if soup.title.string == "Create new application":
             bilgi(LANG['NEW_APP'])
             hashh = soup.find("input", {"name": "hash"}).get("value")
+            app_title = soru("Uygulamanızın adı ne olsun? (Otomatik oluşturmak için boş bırakın): ")
+            if app_title == '':
+                app_title = choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) + choice(["", "-", "+", " "]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), ""])
+            
+            app_shortname = soru("Uygulamanızın kısa adı ne olsun? (Otomatik oluşturmak için boş bırakın) \[5-32 karakter\]: ")
+            if app_shortname == '':
+                app_shortname = choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) + choice(["", "-", "+", " "]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), ""])
+            
             AppInfo = {
                 "hash": hashh,
-                "app_title": choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) + choice(["", "-", "+"]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), ""]),
-                "app_shortname": choice(["as", "ase", "asen", "madelineproto", "telethon", "pyrogram"]) +  choice(["", "-", "+"]) + choice(["user", "bot", "vue", "jsx", "python", "php"]) + choice([str(randint(10000, 99999)), str(randint(10, 50)), ""]),
+                "app_title": app_title,
+                "app_shortname": app_shortname,
                 "app_url": "",
-                "app_platform": choice(["android", "ios", "web", "desktop", ""]),
+                "app_platform": choice(["android", "ios", "web", "desktop"]),
                 "app_desc": choice(["madelineproto", "pyrogram", "telethon", "", "web", "cli"])
             }
             app = requests.post("https://my.telegram.org/apps/create", data=AppInfo, cookies=cookie).text
